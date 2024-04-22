@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  locust_master:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --master -H http://master:8089
+
+  locust_worker1:
+    image: locustio/locust
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust_master
+
+  locust_worker2:
+    image: locustio/locust
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust_master
+
+  locust_worker3:
+    image: locustio/locust
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust_master
+
+  locust_worker4:
+    image: locustio/locust
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust_master
